@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>removeEventListener</title>
+</head>
+
+<body>
+    <div id="minhaDiv" style="border: 2px solid black; width: 50%; height: 280px; text-align: center;">
+        <h2>Escolha a cor:</h2>
+        <button id="botao2" onclick="naoColorir()">Clique para parar<br>(utilização do Remove)</button>
+        <br>
+        <h2>Tente acertá-la:</h2>
+        <h3 id="nomesAleatorios">Passe aqui para gerar</h3>
+        <button id="botao3" onclick="naoGerar()">Clique para parar<br>(utilização do Remove)</button>
+    </div>
+    <br>
+    <h1>addEventListener x onclick</h1>
+    <button id="btn">Clique aqui</button>
+    <h2 id="text1"></h2>
+    <h2 id="text2"></h2>
+    <br>
+    <button id="btn2">Clique aqui</button>
+    <h2 id="text3"></h2>
+    <h2 id="text4"></h2>
+
+    <script>
+        let a = document.getElementById("btn");
+
+        function aparecerTexto1() {
+            document.getElementById("text1").innerHTML = "Texto 1 aparece"
+        }
+        function aparecerTexto2() {
+            document.getElementById("text2").innerHTML = "Texto 2 aparece"
+        }
+
+        a.addEventListener("click", aparecerTexto1);
+        a.addEventListener("click", aparecerTexto2);
+
+        let b = document.getElementById("btn2");
+
+        b.onclick = function aparecerTexto3() {
+            document.getElementById("text3").innerHTML = "Texto 3 aparece";
+        };
+
+        b.onclick = function aparecerTexto4() {
+            document.getElementById("text4").innerHTML = "Texto 4 aparece";
+        };
+
+
+        document.getElementById("minhaDiv").addEventListener("click", gerarCor);
+        document.getElementById("minhaDiv").addEventListener("mousemove", gerarNome);
+
+        function numeroAleatorio() {
+            return Math.floor(Math.random() * (4));
+        }
+
+        let cores = ["green", "red", "yellow", "blue"];
+
+        function gerarCor() {
+            if (numeroAleatorio() < 1) {
+                document.getElementById("minhaDiv").style.backgroundColor = cores[0];
+            } else if (numeroAleatorio() < 2) {
+                document.getElementById("minhaDiv").style.backgroundColor = cores[1];
+            } else if (numeroAleatorio() < 3) {
+                document.getElementById("minhaDiv").style.backgroundColor = cores[2];
+            } else {
+                document.getElementById("minhaDiv").style.backgroundColor = cores[3];
+            }
+        }
+
+        function naoColorir() {
+            document.getElementById("minhaDiv").removeEventListener("click", gerarCor);
+        }
+
+        let nomes = ["verde", "vermelho", "amarelo", "azul"];
+
+        function gerarNome() {
+            if (numeroAleatorio() < 1) {
+                document.getElementById("nomesAleatorios").innerHTML = nomes[0];
+            } else if (numeroAleatorio() < 2) {
+                document.getElementById("nomesAleatorios").innerHTML = nomes[1];
+            } else if (numeroAleatorio() < 3) {
+                document.getElementById("nomesAleatorios").innerHTML = nomes[2];
+            } else {
+                document.getElementById("nomesAleatorios").innerHTML = nomes[3];
+            }
+        }
+
+        function naoGerar() {
+            document.getElementById("minhaDiv").removeEventListener("mousemove", gerarNome);
+        }
+
+    </script>
+</body>
+
+</html>
